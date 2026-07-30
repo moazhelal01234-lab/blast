@@ -132,3 +132,9 @@
   .unit-hp{transform:scale(.98);transform-origin:left center}
   .plot:active{background:#b5ff981f;outline:2px solid #b9ff8a;outline-offset:-3px}
 }
+
+.invasion-timer{position:absolute;z-index:11;top:14px;left:50%;display:flex;align-items:center;gap:9px;transform:translateX(-50%);padding:7px 12px;border:1px solid #98efff;background:#101d42e8;color:#e8fcff;border-radius:4px;box-shadow:0 0 18px #68dcff55;pointer-events:none}.invasion-timer b{font:800 20px 'DM Mono';color:#aaff87}.invasion-timer span{font:800 9px 'DM Mono';letter-spacing:1.1px;white-space:nowrap}
+
+@media (max-width: 900px) {
+  .invasion-timer{top:8px;padding:6px 9px;gap:6px}.invasion-timer b{font-size:17px}.invasion-timer span{font-size:7px;letter-spacing:.7px}
+}
