@@ -110,15 +110,13 @@
 /* A six-column phone board gives every cannon a reliably tappable placement area. */
 @media (max-width: 600px), (max-height: 500px) and (pointer: coarse) {
   /* Phone-first battle view: the board owns the screen and controls stay compact. */
-  .game-top{height:calc(45px + env(safe-area-inset-top));padding-inline:10px}
-  .game-title small{display:none}
-  .game-title b{font-size:10px}
-  .objective{grid-template-columns:auto 58px auto;font-size:6px}
-  .battle-head{height:50px;min-height:50px;padding:6px 12px}
-  .battle-head .overline{font-size:7px;margin-bottom:2px}
-  .battle-head h2{font-size:16px}
-  .wave-badge{padding-left:9px}
-  .wave-badge b{font-size:22px}
+  .game-top{display:none}
+  .battle-head{height:42px;min-height:42px;padding:4px 14px;justify-content:flex-end}
+  .battle-head>div:first-child{display:none}
+  .wave-badge{display:flex;align-items:baseline;gap:5px;border:0;padding:0}
+  .wave-badge small{font-size:7px;letter-spacing:1.5px}
+  .wave-badge b{font-size:24px;line-height:1}
+  .wave-badge span{font-size:8px}
   .deck{height:73px;min-height:73px;padding:5px 8px}
   .hero-card{height:59px;flex-basis:108px}
   .arena-wrap{background:#08122a}
@@ -126,8 +124,8 @@
   .beacon-edge{position:absolute;z-index:11;right:0;top:0;bottom:0;width:28px;min-width:28px;background:#091538bb;pointer-events:none}
   .beacon-edge span{font-size:16px}
   .beacon-edge small{font-size:5px}
-  .arena{width:100%;flex:none}
-  .guardian{width:15%;height:19%;filter:drop-shadow(0 7px 5px #02030bdd)}
+  .arena{width:100%;flex:none;background-image:linear-gradient(#b6f5ff42 1px,transparent 1px),linear-gradient(90deg,#b6f5ff4d 1px,transparent 1px),radial-gradient(ellipse at 50% 44%,#304a8f,#101936 68%);background-size:100% 20%,16.6667% 100%,100% 100%}
+  .guardian{width:15%;height:auto;aspect-ratio:1;filter:drop-shadow(0 7px 5px #02030bdd)}
   .enemy{width:58px;height:82px}
   .enemy.boss{width:78px;height:104px}
   .enemy-hp{transform:scale(.95);transform-origin:left center}
