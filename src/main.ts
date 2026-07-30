@@ -20,6 +20,7 @@ localStorage.setItem('bloomfall-unlocked',JSON.stringify(unlocked))
 let selected:HeroKind|null=null, radiance=175, wave=1, kills=0, waveCoins=0, toSpawn=0, spawned=0, spawnClock=0, running=false, paused=false, core=100, heroes:Hero[]=[], enemies:Enemy[]=[], raf=0, shopReturn='home'
 let gridColumns=9
 const reloadUntil:Partial<Record<HeroKind,number>>={}
+const usesPhoneBoard=()=>window.matchMedia('(max-width: 600px), (max-height: 500px) and (pointer: coarse)').matches
 
 $('#app')!.innerHTML=`<main class="app">
  <section id="home" class="screen home-screen">
@@ -48,7 +49,7 @@ function updateReloadCard(kind:HeroKind){const button=document.querySelector<HTM
 function startReload(kind:HeroKind){reloadUntil[kind]=Date.now()+5000;updateReloadCard(kind)}
 function renderCards(){const card=$('#heroCards'),picker=$('#unitPicker') as HTMLSelectElement;card.innerHTML='';const available=defs.filter(d=>unlocked.includes(d.kind));picker.innerHTML=`<option value="">Choose cannon…</option>`+available.map(d=>`<option value="${d.kind}" ${selected===d.kind?'selected':''}>${d.name}</option>`).join('');available.forEach(d=>card.insertAdjacentHTML('beforeend',`<button type="button" data-kind="${d.kind}" class="hero-card ${selected===d.kind?'chosen':''}" aria-pressed="${selected===d.kind}"><span class="card-icon ${d.kind}">${d.glyph}</span><span><b>${d.name}</b><small>${d.role}</small></span><em>✧ ${d.cost}</em></button>`));card.querySelectorAll<HTMLButtonElement>('.hero-card').forEach(button=>button.onclick=event=>{event.stopPropagation();const kind=button.dataset.kind as HeroKind;if((reloadUntil[kind]||0)>Date.now())return hint('That cannon is reloading.');selectUnit(kind)});available.forEach(d=>updateReloadCard(d.kind))}
 function renderShop(){const wrap=$('#shopItems');wrap.innerHTML='';defs.filter(d=>d.locked).forEach(d=>{const got=unlocked.includes(d.kind);wrap.insertAdjacentHTML('beforeend',`<div class="shop-item ${got?'owned':''}"><div class="shop-glyph ${d.kind}">${d.glyph}</div><div><b>${d.name}</b><span>${d.role}</span><p>${d.description}</p></div><button data-unlock="${d.kind}" ${got?'disabled':''}>${got?'UNLOCKED':`BUY · ◈ ${d.unlock}`}</button></div>`)});}
-function makeGrid(){const arena=$('#arena');gridColumns=window.matchMedia('(max-width: 600px)').matches?6:9;arena.innerHTML='';for(let r=0;r<5;r++)for(let c=0;c<gridColumns;c++){const plot=document.createElement('button');plot.className=`plot r${r} c${c}`;plot.dataset.r=String(r);plot.dataset.c=String(c);plot.ariaLabel='Place cannon';plot.style.left=`${c*100/gridColumns}%`;plot.style.width=`${100/gridColumns}%`;arena.append(plot)}}
+function makeGrid(){const arena=$('#arena');gridColumns=usesPhoneBoard()?6:9;arena.innerHTML='';for(let r=0;r<5;r++)for(let c=0;c<gridColumns;c++){const plot=document.createElement('button');plot.className=`plot r${r} c${c}`;plot.dataset.r=String(r);plot.dataset.c=String(c);plot.ariaLabel='Place cannon';plot.style.left=`${c*100/gridColumns}%`;plot.style.width=`${100/gridColumns}%`;arena.append(plot)}}
 function hint(text:string){const h=$('#hint');h.textContent=text;h.classList.add('visible');setTimeout(()=>h.classList.remove('visible'),1800)}
 function startExpedition(){cancelAnimationFrame(raf);wave=1;startWave()}
 function resumeExpedition(){cancelAnimationFrame(raf);wave=Math.min(30,Math.max(1,savedWave));startWave()}
