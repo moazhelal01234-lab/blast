@@ -106,3 +106,9 @@
   .deck{height:67px;min-height:67px;padding-block:4px}
   .hero-card{height:54px}
 }
+
+/* A six-column phone board gives every cannon a reliably tappable placement area. */
+@media (max-width: 600px) {
+  .guardian{width:15%;height:17%}
+  .plot{min-width:0}
+}
